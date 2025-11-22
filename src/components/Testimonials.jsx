@@ -1,83 +1,128 @@
-import { motion } from 'framer-motion';
-import SectionHeader from './SectionHeader.jsx';
-import testimonialAvatar from '../assets/Image-13.png';
-import testimonialIllustration from '../assets/Group-1000010341.png';
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import SectionHeader from "./SectionHeader.jsx";
+
+import testimonialAvatar from "../assets/Image-13.png";
+import servicesImage from "../assets/Group-1000010357.png";
+import rightIllustration from "../assets/Group-1000010341.png";
 
 const testimonials = [
   {
     id: 1,
-    name: 'James Anderson',
-    role: 'CEO and Founder',
+    name: "James Anderson",
+    role: "CEO and Founder",
     text:
-      '“Your text goes here. This is just placeholder content. Replace this with a real client quote about how VDMR transformed their Dynamics 365 environment and delivered measurable business outcomes.”'
+      "“Your text goes here. This is just placeholder content. Replace this with a real client quote about how VDMR transformed their Dynamics 365 environment and delivered measurable business outcomes.”",
   },
   {
     id: 2,
-    name: 'James Anderson',
-    role: 'CEO and Founder',
+    name: "Michael Smith",
+    role: "CTO – Global Systems",
     text:
-      '“Your text goes here. This is just placeholder content. Add a second testimonial showcasing reliability, on-time delivery, and deep functional knowledge.”'
-  }
+      "“This testimonial showcases reliability, on-time delivery, and deep technical expertise that helped us modernize our operations.”",
+  },
 ];
 
 const Testimonials = () => {
+  const [index, setIndex] = useState(0);
+
+  const nextTestimonial = () => {
+    setIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
   return (
     <section
       id="testimonials"
-      className="bg-gradient-to-b from-primarySoft/70 via-[#FFBBA3] to-primarySoft/80 py-16 md:py-20"
+      className="py-16 md:py-20 bg-white"
+      style={{
+        backgroundImage: `url(${servicesImage})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100%",
+        backgroundPosition: "center",
+        backgroundPositionY: "50px",
+      }}
     >
       <div className="mx-auto max-w-6xl px-4">
         <SectionHeader
           eyebrow="What Our Clients Say"
           title="Trusted by Businesses Across the Globe"
-          className="mb-8"
         />
 
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
-          <div>
-            <div className="space-y-6">
-              {testimonials.map((t, idx) => (
-                <motion.article
-                  key={t.id}
-                  className="relative overflow-hidden rounded-3xl bg-[#FFDCB6] p-6 md:p-8 shadow-card flex flex-col gap-4"
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+        <div className="mt-10 grid md:grid-cols-2 gap-10 items-center">
+
+          {/* LEFT — TESTIMONIAL SLIDER */}
+          <div className="relative flex items-center justify-center">
+
+            {/* LEFT ARROW (OUTSIDE CARD) */}
+            <button
+              onClick={prevTestimonial}
+              className="absolute -left-12 top-1/2 -translate-y-1/2 bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white px-4 py-3 rounded-full shadow-md transition"
+            >
+              ←
+            </button>
+
+            <div className="w-full max-w-xl">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={testimonials[index].id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="rounded-3xl bg-[#FFDCB6] p-8 shadow-xl"
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center justify-center gap-4 mb-4">
                     <img
                       src={testimonialAvatar}
-                      alt={t.name}
-                      className="h-12 w-12 rounded-full object-cover"
+                      alt="Client"
+                      className="h-14 w-14 rounded-full object-cover"
                     />
-                    <div>
-                      <div className="flex items-center gap-1 text-yellow-500 text-sm">{'★★★★★'}</div>
-                      <p className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-700">
-                        {t.name}
+                    <div className="text-left">
+                      <p className="text-yellow-500 text-lg">★★★★★</p>
+                      <p className="text-sm font-semibold">
+                        {testimonials[index].name}
                       </p>
-                      <p className="text-xs text-slate-600">{t.role}</p>
+                      <p className="text-xs text-slate-600">
+                        {testimonials[index].role}
+                      </p>
                     </div>
                   </div>
-                  <p className="text-sm text-slate-800 leading-relaxed">{t.text}</p>
-                </motion.article>
-              ))}
+
+                  <p className="text-slate-800 text-sm leading-relaxed">
+                    {testimonials[index].text}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
             </div>
+
+            {/* RIGHT ARROW (OUTSIDE CARD) */}
+            <button
+              onClick={nextTestimonial}
+              className="absolute -right-12 top-1/2 -translate-y-1/2 bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white px-4 py-3 rounded-full shadow-md transition"
+            >
+              →
+            </button>
           </div>
 
+          {/* RIGHT SIDE IMAGE */}
           <motion.div
-            className="flex justify-center"
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6 }}
+            className="flex justify-center"
           >
             <img
-              src={testimonialIllustration}
-              alt="Happy customers illustration"
+              src={rightIllustration}
+              alt="Testimonials illustration"
               className="max-h-[420px] w-auto object-contain"
             />
           </motion.div>
+
         </div>
       </div>
     </section>
@@ -85,6 +130,3 @@ const Testimonials = () => {
 };
 
 export default Testimonials;
-
-
-

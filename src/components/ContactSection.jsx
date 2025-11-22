@@ -1,111 +1,116 @@
-import { motion } from 'framer-motion';
-import phoneIcon from '../assets/Group-1000004160-25x25.png';
-import emailIcon from '../assets/Group-1000004160-1-25x25.png';
-import addressIcon from '../assets/Group-1000004160-2-25x25.png';
+import { motion } from "framer-motion";
 
 const ContactSection = () => {
   return (
-    <section
-      id="contact"
-      className="bg-gradient-to-b from-white via-accentBlue/10 to-white py-16 md:py-20"
-    >
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="grid gap-10 md:grid-cols-2 md:items-start">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-4">Get in touch</h2>
-            <p className="text-sm md:text-base text-slate-600 mb-6">
-              Tell us about your Dynamics 365 plans and we’ll respond with options for implementation, upgrade, or
-              optimization tailored to your organisation.
-            </p>
-            <ul className="space-y-4 text-sm text-slate-800">
-              <li className="flex gap-3">
-                <img src={phoneIcon} alt="Phone" className="h-6 w-6" />
-                <span>
-                  <span className="font-semibold">Phone (Customer Service)</span>
-                  <br />
-                  0431491092
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <img src={emailIcon} alt="Email" className="h-6 w-6" />
-                <span>
-                  <span className="font-semibold">General Email</span>
-                  <br />
-                  admin@vdmrptyltd.com
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <img src={addressIcon} alt="Address" className="h-6 w-6" />
-                <span>
-                  <span className="font-semibold">Office Address</span>
-                  <br />
-                  Unit 1 / 251 Latrobe Tce, Geelong, Victoria 3220, Australia
-                </span>
-              </li>
-            </ul>
-          </motion.div>
+    <section id="contact" className="bg-white py-12 md:py-16">
+      <div className="mx-auto max-w-3xl px-4"> {/* Reduced Width */}
 
-          <motion.div
-            className="rounded-3xl bg-white p-6 shadow-card"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
+
+        
+        {/* 🔶 CONTACT US HEADING WITH BACKGROUND */}
+        <div className="text-center mb-8">
+          <h2
+            className="
+              inline-block
+              px-6 py-2
+              rounded-3xl
+              text-xl md:text-2xl font-bold
+              text-[#E67342]
+              bg-[#FFE1D5]
+            "
           >
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="space-y-4"
-            >
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Name</label>
-                <input
-                  type="text"
-                  required
-                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
-                <input
-                  type="email"
-                  required
-                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Company</label>
-                <input
-                  type="text"
-                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">How can we help?</label>
-                <textarea
-                  rows={4}
-                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                />
-              </div>
-              <button
-                type="submit"
-                className="mt-2 w-full rounded-full bg-primary px-6 py-3 text-sm font-medium text-white shadow-card hover:bg-primaryLight transition"
-              >
-                Send Message
-              </button>
-            </form>
-          </motion.div>
+            Contact Us
+          </h2>
         </div>
+
+
+        <motion.div
+          className="rounded-2xl bg-white p-6 shadow-xl border border-slate-200"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Centered Heading */}
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6 text-center">
+            Get In Touch With Us
+          </h2>
+
+          <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+
+            {/* NAME */}
+            <div>
+              <label className="block text-sm font-medium text-slate-800 mb-1">
+                Name <span className="text-red-500">*</span>
+              </label>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <input
+                  type="text"
+                  placeholder="First"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-primary"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Last"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-primary"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* EMAIL */}
+            <div>
+              <label className="block text-sm font-medium text-slate-800 mb-1">
+                Email <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-primary"
+                required
+              />
+            </div>
+
+            {/* FILE UPLOAD */}
+            <div>
+              <label className="block text-sm font-medium text-slate-800 mb-1">
+                File Upload
+              </label>
+
+              <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center text-slate-500 hover:border-slate-400 transition cursor-pointer">
+                <input type="file" id="fileUpload" className="hidden" />
+                <label htmlFor="fileUpload" className="cursor-pointer text-sm">
+                  <div className="text-3xl mb-1">📁</div>
+                  Click or drag a file here
+                </label>
+              </div>
+            </div>
+
+            {/* MESSAGE */}
+            <div>
+              <label className="block text-sm font-medium text-slate-800 mb-1">
+                Message
+              </label>
+              <textarea
+                rows={3}
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-primary"
+              />
+            </div>
+
+            {/* SUBMIT BUTTON */}
+            <button
+              type="submit"
+              className="w-full rounded-full bg-[#D87245] hover:bg-[#F8A77D] text-white text-sm font-medium py-2.5 transition shadow-md"
+            >
+              Submit
+            </button>
+
+          </form>
+        </motion.div>
       </div>
     </section>
   );
 };
 
 export default ContactSection;
-
-
-

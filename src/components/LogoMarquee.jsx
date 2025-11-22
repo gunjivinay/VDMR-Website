@@ -8,11 +8,8 @@ const logos = [logoGrammarly, logoCanva, logoLinear, logoCoinbase];
 
 const LogoMarquee = () => {
   return (
-    <section className="border-y border-slate-100 bg-white">
+    <section className="border-slate-100 bg-[#F8C8B4]"> 
       <div className="mx-auto max-w-6xl px-4 py-6">
-        <p className="text-xs uppercase tracking-[0.2em] text-slate-500 text-center mb-4">
-          Trusted by teams using leading technology
-        </p>
         <div className="relative overflow-hidden">
           <motion.div
             className="flex gap-10"
@@ -32,6 +29,3 @@ const LogoMarquee = () => {
 };
 
 export default LogoMarquee;
-
-
-

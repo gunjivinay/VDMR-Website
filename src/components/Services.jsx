@@ -4,6 +4,7 @@ import servicesCard1 from '../assets/Group-1000010347.png';
 import servicesCard2 from '../assets/Group-1000010332.png';
 import servicesCard3 from '../assets/Group-1000010330.png';
 
+
 const serviceCards = [
   {
     id: 1,
@@ -26,7 +27,7 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="bg-gradient-to-b from-accentBlue/10 via-accentBlue/40 to-accentBlueDark/40 py-16 md:py-20"
+      className="bg-gradient-to-b from-accentOrange/10 via-accentOrange/40 to-accentOrangeDark/40 py-16 md:py-20"
     >
       <div className="mx-auto max-w-6xl px-4">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
@@ -63,9 +64,9 @@ const Services = () => {
               >
                 <img src={card.image} alt="Service illustration" className="h-80 w-full object-cover md:h-[22rem]" />
                 <div className="absolute inset-x-0 bottom-0 flex justify-center pb-6">
-                  <button className="inline-flex items-center rounded-full bg-white/90 px-5 py-2 text-sm font-medium text-primary hover:bg-white">
+                  <button className="inline-flex items-center rounded-lg bg-gradient-to-b from-primaryLight to-primary px-5 py-2 text-sm font-medium text-primary text-white  hover:bg-none hover:bg-[#FBC7A6] hover:text-black">
                     {card.cta}
-                    <span className="ml-2 inline-flex h-6 w-6 items-center justify-center rounded-full bg-black text-white text-xs">
+                    <span className="ml-2 inline-flex h-6 w-6 items-center justify-center rounded-full text-white text-xs">
                       ↑
                     </span>
                   </button>
@@ -77,10 +78,10 @@ const Services = () => {
           <div className="mt-10 flex justify-center">
             <a
               href="#services"
-              className="inline-flex items-center rounded-full bg-gradient-to-b from-primaryLight to-primary px-8 py-3 text-sm font-medium text-white shadow-card"
+              className="inline-flex items-center rounded-full bg-gradient-to-b from-primaryLight to-primary px-8 py-3 text-sm font-medium text-white shadow-card  hover:bg-none hover:bg-[#FBC7A6] hover:text-black"
             >
               View All Services
-              <span className="ml-2 inline-flex h-6 w-6 items-center justify-center rounded-full bg-black text-white text-xs">
+              <span className="ml-2 inline-flex h-6 w-6 items-center justify-center rounded-full text-white text-xs">
                 →
               </span>
             </a>

@@ -1,86 +1,105 @@
-import { motion } from 'framer-motion';
-import heroImage from '../assets/image-11.png';
-import StatsStrip from './StatsStrip.jsx';
+import { motion } from "framer-motion";
+import StatsStrip from "./StatsStrip.jsx";
+import rightHeroImage from "../assets/Section.png";
 
 const Hero = () => {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-gradient-to-b from-accentBlue/15 via-white to-primarySoft/40"
+      className="relative overflow-hidden bg-gradient-to-b from-[#FFF4ED] via-white to-[#FFE8D9]"
+      style={{
+        backgroundImage: `url(${rightHeroImage})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "auto 100%",
+        backgroundPosition: "right center",
+        backgroundPositionY: "-80px",
+      }}
     >
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 py-16 md:flex-row md:py-24">
-        <div className="relative z-10 w-full md:w-1/2">
+      <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-12 px-4 py-20">
+
+        {/* LEFT CONTENT WITH SLIDE-IN EFFECT */}
+        <motion.div
+          className="relative z-10 w-full md:w-1/2"
+          initial={{ opacity: 0, x: -80 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          {/* BADGE */}
           <motion.div
-            className="inline-flex rounded-full bg-primarySoft/60 px-4 py-1 text-xs font-medium text-primary"
+            className="inline-flex rounded-full bg-[#E67342] px-5 py-2 text-lg font-medium text-white shadow"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Welcome to VDMR Website
+            Welcome To VDMR Website
           </motion.div>
 
+          {/* TITLE WITH ORANGE GRADIENT STYLING */}
           <motion.h1
-            className="mt-4 text-3xl md:text-4xl lg:text-5xl font-semibold text-slate-900 leading-tight"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            <span className="underline decoration-primary/60 decoration-4 underline-offset-4">Powering</span> Your
-            Business with Expert{' '}
-            <span className="underline decoration-primary/60 decoration-4 underline-offset-4">
-              MS Dynamics 365 Solutions
-            </span>
-          </motion.h1>
+  className="mt-6 text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 
+             leading-[1.25] tracking-tight space-y-3"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.7, delay: 0.3 }}
+>
+  <div className="space-y-2">
+    <span className="text-[#F9A07A]">Powering</span>{" "}
+    <span className="text-slate-900">Your Business</span>
+  </div>
 
+  <div className="space-y-2">
+    <span className="text-slate-900">with Expert</span>{" "}
+    <span className="text-[#F9A07A]">Ms Dynamics</span>
+  </div>
+
+  <div className="space-y-2">
+    <span className="text-[#F9A07A]">365 Solutions</span>
+  </div>
+</motion.h1>
+
+          {/* DESCRIPTION */}
           <motion.p
-            className="mt-4 text-sm md:text-base text-slate-600"
+            className="mt-5 text-lg text-slate-600 max-w-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
           >
-            Unlock unparalleled efficiency and growth with VDMR Pty Ltd. As dedicated specialists in the Microsoft Dynamics
-            365 ecosystem, we deliver tailor-made implementation, customization, and support services that transform complex
-            operations into streamlined, competitive advantages.
+            Unlock unparalleled efficiency and growth with VDMR Pty Ltd.
+            As dedicated specialists in the Microsoft Dynamics 365 ecosystem,
+            we deliver tailor-made implementation, customization, and support
+            services that transform complex operations into streamlined,
+            competitive advantages.
           </motion.p>
 
+          {/* BUTTONS */}
           <motion.div
-            className="mt-6 flex flex-wrap gap-3"
+            className="mt-8 flex flex-wrap gap-4"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
           >
             <a
               href="#contact"
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-b from-primaryLight to-primary px-6 py-3 text-sm font-medium text-white shadow-card hover:-translate-y-0.5 hover:shadow-lg transition"
+              className="inline-flex items-center justify-center rounded-xl bg-gradient-to-b 
+                from-[#F39C7A] to-[#E56E40] px-7 py-2.5 text-base font-medium text-white 
+                shadow transition-all duration-500 hover:bg-[#FBC7A6] hover:text-black
+                 hover:bg-none hover:bg-[#FBC7A6] hover:text-black"
             >
-              Request a Free Consultation
-              <span className="ml-2 inline-flex h-6 w-6 items-center justify-center rounded-full bg-black text-white text-xs">
-                →
-              </span>
+              Request A Free Consultation →
             </a>
+
             <a
               href="#contact"
-              className="inline-flex items-center justify-center rounded-full border border-primary bg-white px-6 py-3 text-sm font-medium text-primary hover:bg-primary hover:text-white transition"
+              className="inline-flex items-center justify-center rounded-xl border border-[#E67342] 
+                px-7 py-2.5 text-base font-medium text-[#E67342]
+                transition-all duration-300 hover:bg-[#E67342] hover:text-white"
             >
               Contact Us
             </a>
           </motion.div>
 
+          {/* STATS SECTION */}
           <StatsStrip />
-        </div>
-
-        <motion.div
-          className="relative w-full md:w-1/2"
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.7 }}
-        >
-          <div className="relative mx-auto max-w-md rounded-3xl bg-white/70 p-4 shadow-card">
-            <img src={heroImage} alt="Analytics dashboard on laptop" className="h-auto w-full rounded-2xl object-cover" />
-          </div>
-          <div className="pointer-events-none absolute -right-24 -top-16 h-72 w-72 rounded-full bg-primarySoft blur-3xl opacity-80" />
-          <div className="pointer-events-none absolute -left-16 bottom-0 h-64 w-64 rounded-full bg-accentBlue/40 blur-3xl" />
         </motion.div>
       </div>
     </section>
@@ -88,6 +107,3 @@ const Hero = () => {
 };
 
 export default Hero;
-
-
-
