@@ -3,6 +3,7 @@ import SectionHeader from './SectionHeader.jsx';
 import aboutMainImage from '../assets/image-11.png';
 import deepExpertiseIcon from '../assets/Group-1000010323.png';
 import globalReachIcon from '../assets/Vector-1.png';
+import aboutImage from '../assets/expert-2.png';
 
 
 const About = () => {
@@ -137,7 +138,7 @@ const About = () => {
     h-[220px] w-full sm:w-[200px] max-w-[200px]"
   >
     <img
-      src="/src/assets/expert-2.png"
+      src={aboutImage}
       className="h-20 w-20 mb-4 object-contain"
       alt={title}
     />
