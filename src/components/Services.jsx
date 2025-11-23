@@ -3,6 +3,8 @@ import SectionHeader from './SectionHeader.jsx';
 import servicesCard1 from '../assets/Group-1000010347.png';
 import servicesCard2 from '../assets/Group-1000010332.png';
 import servicesCard3 from '../assets/Group-1000010330.png';
+import aboutImage from '../assets/expert-2.png';
+import aboutbackImage from '../assets/r-2.png';
 
 
 const serviceCards = [
@@ -26,6 +28,14 @@ const serviceCards = [
 const Services = () => {
   return (
     <section
+    style={{
+      backgroundImage: `url(${aboutbackImage})`,
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "100%",
+      backgroundPosition: "center",
+      backgroundPositionY: "50px",
+     
+    }}
       id="services"
       className="bg-gradient-to-b from-accentOrange/10 via-accentOrange/40 to-accentOrangeDark/40 py-16 md:py-20"
     >
@@ -88,6 +98,37 @@ const Services = () => {
           </div>
         </div>
       </div>
+
+
+       {/* ⭐ UPDATED 5-CARD ROW ⭐ */}
+<div className="mt-12 flex flex-wrap justify-center gap-6">
+
+{/* CARD TEMPLATE */}
+{[ 
+  "Talent Acquisition",
+  "Temporary Staffing",
+  "Contract To Hire",
+  "IT Consulting",
+  "Expert Training"
+].map((title, i) => (
+  <div
+    key={i}
+    className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all
+    flex flex-col items-center justify-center
+    hover:bg-[#E67342] hover:text-white hover:shadow-xl
+        group
+    h-[220px] w-full sm:w-[200px] max-w-[200px]"
+  >
+    <img
+      src={aboutImage}
+      className="h-20 w-20 mb-4 object-contain"
+      alt={title}
+    />
+    <h3 className="font-semibold text-lg text-center">{title}</h3>
+  </div>
+))}
+
+</div>
     </section>
   );
 };

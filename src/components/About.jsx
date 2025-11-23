@@ -3,7 +3,7 @@ import SectionHeader from './SectionHeader.jsx';
 import aboutMainImage from '../assets/image-11.png';
 import deepExpertiseIcon from '../assets/Group-1000010323.png';
 import globalReachIcon from '../assets/Vector-1.png';
-import aboutImage from '../assets/expert-2.png';
+
 
 
 const About = () => {
@@ -117,36 +117,6 @@ const About = () => {
       </div>
       
     </div>
-
-  {/* ⭐ UPDATED 5-CARD ROW ⭐ */}
-<div className="mt-12 flex flex-wrap justify-center gap-6">
-
-{/* CARD TEMPLATE */}
-{[ 
-  "Talent Acquisition",
-  "Temporary Staffing",
-  "Contract To Hire",
-  "IT Consulting",
-  "Expert Training"
-].map((title, i) => (
-  <div
-    key={i}
-    className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all
-    flex flex-col items-center justify-center
-    hover:bg-[#E67342] hover:text-white hover:shadow-xl
-        group
-    h-[220px] w-full sm:w-[200px] max-w-[200px]"
-  >
-    <img
-      src={aboutImage}
-      className="h-20 w-20 mb-4 object-contain"
-      alt={title}
-    />
-    <h3 className="font-semibold text-lg text-center">{title}</h3>
-  </div>
-))}
-
-</div>
   </section>
   
   );

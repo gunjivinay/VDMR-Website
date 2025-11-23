@@ -60,8 +60,12 @@ const Testimonials = () => {
             {/* LEFT ARROW (OUTSIDE CARD) */}
             <button
               onClick={prevTestimonial}
-              className="absolute -left-12 top-1/2 -translate-y-1/2 bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white px-4 py-3 rounded-full shadow-md transition"
-            >
+              className="
+              absolute -left-6 md:-left-10 
+              top-1/2 -translate-y-1/2
+              bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white 
+              px-4 py-3 rounded-full shadow-md transition
+            "            >
               ←
             </button>
 
@@ -102,8 +106,13 @@ const Testimonials = () => {
             {/* RIGHT ARROW (OUTSIDE CARD) */}
             <button
               onClick={nextTestimonial}
-              className="absolute -right-12 top-1/2 -translate-y-1/2 bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white px-4 py-3 rounded-full shadow-md transition"
-            >
+              className="
+              absolute -right-6 md:-right-10 
+              top-1/2 -translate-y-1/2
+              bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white 
+              px-4 py-3 rounded-full shadow-md transition
+            "
+                        >
               →
             </button>
           </div>

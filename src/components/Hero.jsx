@@ -6,13 +6,14 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-gradient-to-b from-[#FFF4ED] via-white to-[#FFE8D9]"
+      className="relative overflow-hidden bg-gradient-to-b from-[#FFF4ED] via-white to-[#FFE8D9] mt-16"
       style={{
         backgroundImage: `url(${rightHeroImage})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "auto 100%",
         backgroundPosition: "right center",
-        backgroundPositionY: "-80px",
+        backgroundPositionY: "-70px",
+        backgroundPositionX: "-20px",
       }}
     >
       <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-12 px-4 py-20">

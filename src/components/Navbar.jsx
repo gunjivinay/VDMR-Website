@@ -20,16 +20,38 @@ const Navbar = () => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
     };
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleClick = (href) => {
-    setActive(href);
-  };
+  // ⭐ SCROLL-SPY OBSERVER — updates active section
+  useEffect(() => {
+    const sectionElements = links.map(link =>
+      document.querySelector(link.href)
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(`#${entry.target.id}`);
+          }
+        });
+      },
+      {
+        threshold: 0.6, // 60% visible
+      }
+    );
+
+    sectionElements.forEach((sec) => {
+      if (sec) observer.observe(sec);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40">
+    <header className="fixed top-0 left-0 w-full z-50">
       <motion.nav
         className={`backdrop-blur border-b transition-colors ${
           scrolled
@@ -40,8 +62,7 @@ const Navbar = () => {
       >
         <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1.3fr] items-center px-4 py-2 md:py-3">
 
-
-          {/* LEFT — LOGO */}
+          {/* LOGO */}
           <div className="flex items-center">
             <a href="#home">
               <img
@@ -52,65 +73,60 @@ const Navbar = () => {
             </a>
           </div>
 
-      {/* CENTER — NAV LINKS */}
-<div className="hidden md:flex justify-center">
-  <ul className="flex items-center gap-10 whitespace-nowrap text-base font-medium text-slate-700">
-    {links.map((link) => (
-      <li key={link.href}>
-        <a
-          href={link.href}
-          onClick={() => handleClick(link.href)}
-          className="relative inline-flex items-center py-1 group"
-        >
-          {link.label}
+          {/* NAV LINKS */}
+          <div className="hidden md:flex justify-center">
+            <ul className="flex items-center gap-10 whitespace-nowrap text-base font-medium text-slate-700">
+              {links.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setActive(link.href)}
+                    className="relative inline-flex items-center py-1 group"
+                  >
+                    {link.label}
 
-          {/* Underline Animation with Active Link */}
-          <span
-            className={`
-              absolute left-0 -bottom-1 h-[2px] w-full rounded-full bg-orange-400
-              transition-all duration-300 origin-left
-              ${active === link.href ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}
-            `}
-          ></span>
-        </a>
-      </li>
-    ))}
-  </ul>
-</div>
+                    {/* UNDERLINE */}
+                    <span
+                      className={`
+                        absolute left-0 -bottom-1 h-[2px] w-full rounded-full bg-orange-400
+                        transition-all duration-300 origin-left
+                        ${active === link.href ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}
+                      `}
+                    ></span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
+          {/* RIGHT BUTTONS */}
+          <div className="hidden md:flex justify-end items-center gap-4">
+            <a
+              href="#contact"
+              className="
+                px-7 py-2.5 rounded-xl text-base font-medium
+                bg-gradient-to-b from-[#F39C7A] to-[#E56E40]
+                text-white shadow
+                transition-all duration-500 ease-in-out
+                hover:bg-none hover:bg-[#FBC7A6] hover:text-black
+              "
+            >
+              Sign Up Now →
+            </a>
 
-          {/* RIGHT — BUTTONS */}
-<div className="hidden md:flex justify-end items-center gap-4">
-
-<a
-  href="#contact"
-  className="
-    px-7 py-2.5 rounded-xl text-base font-medium
-    bg-gradient-to-b from-[#F39C7A] to-[#E56E40]
-    text-white shadow 
-    transition-all duration-500 ease-in-out
-    hover:bg-none hover:bg-[#FBC7A6] hover:text-black
-  "
->
-  Sign Up Now →
-</a>
-
-<a
-  href="#contact"
-  className="
-    px-7 py-2.5 rounded-xl text-base font-medium
-    bg-gradient-to-b from-[#F39C7A] to-[#E56E40]
-    text-white shadow 
-    transition-all duration-500 ease-in-out
-    hover:bg-none hover:bg-[#FBC7A6] hover:text-black
-  "
->
-  Upload CV
-</a>
-
-
-</div>
-
+            <a
+              href="#contact"
+              className="
+                px-7 py-2.5 rounded-xl text-base font-medium
+                bg-gradient-to-b from-[#F39C7A] to-[#E56E40]
+                text-white shadow
+                transition-all duration-500 ease-in-out
+                hover:bg-none hover:bg-[#FBC7A6] hover:text-black
+              "
+            >
+              Upload CV
+            </a>
+          </div>
 
           {/* MOBILE MENU BUTTON */}
           <button
@@ -125,15 +141,16 @@ const Navbar = () => {
 
         {/* MOBILE MENU */}
         <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="border-t border-slate-200 bg-white md:hidden"
-            >
+  {open && (
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      className="absolute top-full left-0 w-full border-t border-slate-200 bg-white md:hidden z-50 shadow-lg"
+    >
               <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4">
                 <ul className="flex flex-col gap-3 text-base font-medium text-slate-800">
+
                   {links.map((link) => (
                     <li key={link.href}>
                       <a
@@ -145,10 +162,10 @@ const Navbar = () => {
                       </a>
                     </li>
                   ))}
+
                 </ul>
 
                 <div className="flex flex-col gap-2">
-
                   <a
                     href="#contact"
                     className="rounded-full bg-orange-500 px-5 py-2 text-center text-white font-medium hover:bg-orange-300 hover:text-black"
@@ -164,8 +181,8 @@ const Navbar = () => {
                   >
                     Upload CV
                   </a>
-
                 </div>
+
               </div>
             </motion.div>
           )}

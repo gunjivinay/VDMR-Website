@@ -5,11 +5,11 @@
 html,
 body {
   scroll-behavior: smooth;
+  overflow-x: hidden !important;
+  width: 100%;
 }
 
 body {
   @apply font-sans bg-white text-slate-900;
 }
-
-
 
