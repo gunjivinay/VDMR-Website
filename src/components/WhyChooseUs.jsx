@@ -17,7 +17,7 @@ const WhyChooseUs = () => {
       <div className="mx-auto max-w-6xl px-4 h-[500px]">
         
         {/* TEXT ALWAYS LEFT SIDE */}
-        <div className="max-w-xl mt-[100px]">  
+        <div className="max-w-xl mt-[50px]">  
           <SectionHeader
             eyebrow="Our Advantage"
             title="Why Leading Companies Choose VDMR Pty Ltd"
@@ -25,21 +25,20 @@ const WhyChooseUs = () => {
           />
 
           <motion.div
-            className="mt-5 space-y-4 text-sm md:text-base text-slate-700"
+            className="mt-5 space-y-4 text-sm md:text-base text-black"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6 }}
           >
             <p>
-              Leading companies choose VDMR for our absolute commitment to quality and 
-              a proven 100% project delivery success rate. Our methodology is built on 
-              transparency, rigorous project governance, and minimizing disruption.
+            Leading companies choose VDMR for our absolute commitment to quality and a proven 100% project delivery success rate. Our methodology is built on transparency, rigorous project governance, and a focus on minimizing disruption, ensuring every implementation is delivered on time and within budget.
             </p>
 
             <p>
-              We build long-term partnerships. Our support ensures your Dynamics system 
-              remains a powerful, reliable catalyst for continuous innovation.
+            We believe in building long-term partnerships. Our dedicated post-implementation support model ensures your teams are empowered and your Dynamics system remains a powerful, reliable catalyst for continuous business innovation and enduring competitive advantage.
+
+
             </p>
           </motion.div>
         </div>

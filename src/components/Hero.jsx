@@ -60,16 +60,12 @@ const Hero = () => {
 
           {/* DESCRIPTION */}
           <motion.p
-            className="mt-5 text-lg text-slate-600 max-w-xl"
+            className="mt-5 text-lg text-black max-w-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
-            Unlock unparalleled efficiency and growth with VDMR Pty Ltd.
-            As dedicated specialists in the Microsoft Dynamics 365 ecosystem,
-            we deliver tailor-made implementation, customization, and support
-            services that transform complex operations into streamlined,
-            competitive advantages.
+            Unlock unparalleled efficiency and growth with VDMR Pty Ltd. As dedicated specialists in the Microsoft Dynamics 365 ecosystem, we deliver tailor-made implementation, customization, and support services that transform complex operations into streamlined, competitive advantages. Let our proven expertise and 15+ years of experience drive your organization’s digital journey forward.
           </motion.p>
 
           {/* BUTTONS */}
@@ -79,24 +75,30 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center rounded-xl bg-gradient-to-b 
-                from-[#F39C7A] to-[#E56E40] px-7 py-2.5 text-base font-medium text-white 
-                shadow transition-all duration-500 hover:bg-[#FBC7A6] hover:text-black
-                 hover:bg-none hover:bg-[#FBC7A6] hover:text-black"
-            >
-              Request A Free Consultation →
-            </a>
-
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center rounded-xl border border-[#E67342] 
-                px-7 py-2.5 text-base font-medium text-[#E67342]
-                transition-all duration-300 hover:bg-[#E67342] hover:text-white"
-            >
-              Contact Us
-            </a>
+           <a
+  href="#contact"
+  className="
+    relative overflow-hidden rounded-xl px-7 py-2.5 text-base font-medium 
+    bg-orange-500 text-white shadow transition-all duration-500
+    before:absolute before:inset-0 before:bg-orange-300
+    before:-translate-x-full before:transition-transform before:duration-500
+    before:z-0 hover:before:translate-x-0 hover:text-black
+  "
+>
+  <span className="relative z-[1]">Request A Free Consultation →</span>
+</a>
+<a
+  href="#contact"
+  className="
+    relative overflow-hidden rounded-xl px-7 py-2.5 text-base font-medium 
+    border border-[#E67342] text-[#E67342] shadow transition-all duration-500
+    before:absolute before:inset-0 before:bg-[#E67342]
+    before:-translate-x-full before:transition-transform before:duration-500
+    before:z-0 hover:before:translate-x-0 hover:text-white
+  "
+>
+  <span className="relative z-[1]">Contact Us</span>
+</a>
           </motion.div>
 
           {/* STATS SECTION */}

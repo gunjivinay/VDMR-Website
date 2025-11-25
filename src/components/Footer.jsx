@@ -11,8 +11,7 @@ const Footer = () => {
           <div className="text-center md:text-left">
             <img src={logo} alt="VDMR Pty Ltd" className="mx-auto h-12 w-auto md:mx-0" />
             <p className="mt-4 text-sm text-slate-800">
-              VDMR Pty Ltd is a premier Australian-based consultancy specializing exclusively in Microsoft Dynamics 365. We
-              partner with businesses globally to deliver scalable ERP and CRM solutions that drive operational excellence.
+            VDMR Pty Ltd is a premier Australian-based consultancy specializing exclusively in Microsoft Dynamics 365. We partner with businesses globally to deliver scalable, powerful ERP and CRM solutions that drive operational excellence and help achieve sustainable competitive advantage.
             </p>
             <div className="mt-4 flex justify-center gap-3 md:justify-start">
               <span className="h-8 w-8 rounded-full bg-white flex items-center justify-center text-xs text-primary">
@@ -74,7 +73,7 @@ const Footer = () => {
                 <span>
                   Phone (Customer Service)
                   <br />
-                  0431491092
+                  (+61) 447 272 033
                 </span>
               </li>
               <li className="flex gap-3">

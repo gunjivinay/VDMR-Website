@@ -55,21 +55,30 @@ const Testimonials = () => {
         <div className="mt-10 grid md:grid-cols-2 gap-10 items-center">
 
           {/* LEFT — TESTIMONIAL SLIDER */}
-          <div className="relative flex items-center justify-center">
+          <div className="relative flex items-center justify-center overflow-visible">
 
-            {/* LEFT ARROW (OUTSIDE CARD) */}
+            {/* 🔥 ANIMATED DOTS – UP & DOWN */}
+            <div className="testimonial-dots">
+              {Array.from({ length: 144 }).map((_, i) => (
+                <span key={i}></span>
+              ))}
+            </div>
+
+            {/* LEFT ARROW */}
             <button
               onClick={prevTestimonial}
               className="
-              absolute -left-6 md:-left-10 
-              top-1/2 -translate-y-1/2
-              bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white 
-              px-4 py-3 rounded-full shadow-md transition
-            "            >
+                absolute -left-6 md:-left-10 
+                top-1/2 -translate-y-1/2
+                bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white 
+                px-4 py-3 rounded-full shadow-md transition
+              "
+            >
               ←
             </button>
 
-            <div className="w-full max-w-xl">
+            {/* TESTIMONIAL CARD */}
+            <div className="w-full max-w-xl relative z-10">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={testimonials[index].id}
@@ -103,21 +112,21 @@ const Testimonials = () => {
               </AnimatePresence>
             </div>
 
-            {/* RIGHT ARROW (OUTSIDE CARD) */}
+            {/* RIGHT ARROW */}
             <button
               onClick={nextTestimonial}
               className="
-              absolute -right-6 md:-right-10 
-              top-1/2 -translate-y-1/2
-              bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white 
-              px-4 py-3 rounded-full shadow-md transition
-            "
-                        >
+                absolute -right-6 md:-right-10 
+                top-1/2 -translate-y-1/2
+                bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white 
+                px-4 py-3 rounded-full shadow-md transition
+              "
+            >
               →
             </button>
           </div>
 
-          {/* RIGHT SIDE IMAGE */}
+          {/* RIGHT IMAGE */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}

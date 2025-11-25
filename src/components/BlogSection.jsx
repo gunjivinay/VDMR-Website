@@ -23,11 +23,10 @@ const BlogSection = () => {
         >
           <a
             href="#blogs"
-            className="inline-flex items-center rounded-full bg-gradient-to-b 
-                       from-primaryLight to-primary px-8 py-3 text-sm font-medium 
-                       text-white shadow-card hover:bg-[#FBC7A6] hover:text-black 
-                       transition-all
-                       hover:bg-[#FBC7A6] hover:from-[#FBC7A6] hover:to-[#FBC7A6] "
+            className="btn-fill-slide inline-flex items-center rounded-lg 
+                       bg-gradient-to-b from-primaryLight to-primary 
+                       px-8 py-3 text-sm font-medium text-white shadow-card
+                       transition-all"
           >
             Explore All Blogs
             <span className="ml-2 inline-flex h-6 w-6 items-center justify-center 

@@ -13,3 +13,156 @@ body {
   @apply font-sans bg-white text-slate-900;
 }
 
+/* Left → Right Hover Fill Animation */
+.btn-fill-hover {
+  @apply relative overflow-hidden transition-all duration-500;
+}
+
+.btn-fill-hover::before {
+  content: "";
+  @apply absolute inset-0 bg-orange-300 -translate-x-full transition-transform duration-500;
+}
+
+.btn-fill-hover:hover::before {
+  @apply translate-x-0;
+}
+
+.btn-fill-hover * {
+  @apply relative z-[1];
+}
+
+
+.btn-fill-slide {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-fill-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: #FBC7A6; /* your existing hover color */
+  transition: all 0.4s ease;
+  z-index: -1;
+}
+
+.btn-fill-slide:hover::before {
+  left: 0;
+}
+
+
+@keyframes popupGlow {
+  0% {
+    background: linear-gradient(135deg, #fff7f2, #ffe1d0);
+  }
+  50% {
+    background: linear-gradient(135deg, #ffe1d0, #ffffff);
+  }
+  100% {
+    background: linear-gradient(135deg, #fff7f2, #ffe1d0);
+  }
+}
+
+
+
+/* Title fill effect */
+.project-fill-slide {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.35s ease;
+}
+
+.project-fill-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: #FBC7A6; /* Light orange fill */
+  transition: all 0.45s ease;
+  z-index: -1;
+}
+
+.group:hover .project-fill-slide::before {
+  left: 0; /* Slide left → right */
+}
+
+.group:hover .project-fill-slide {
+  color: black !important; /* Text becomes black on hover */
+}
+
+/* Modal glow animation */
+@keyframes popupGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(230, 120, 60, 0.2); }
+  50% { box-shadow: 0 0 35px rgba(230, 120, 60, 0.45); }
+}
+
+
+
+
+/* Dotted background (animated) */
+.about-dots {
+  position: absolute;
+  top: -100px;
+  left: -60px;
+  width: 260px;
+  height: 260px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 8px;
+  pointer-events: none;
+  z-index: 1;
+  animation: moveDots 5s ease-in-out infinite alternate;
+}
+
+.about-dots span {
+  width: 4px;
+  height:4px;
+  background-color: #ef7a31; /* 🔥 stronger orange */
+  border-radius: 50%;
+  opacity: 1; /* increased visibility */
+}
+
+@keyframes moveDots {
+  0% { transform: translateX(-30px); }
+  100% { transform: translateX(30px); }
+}
+
+
+
+/* Vertical floating dots */
+/* Animated dots pattern (up & down) */
+.testimonial-dots {
+  position: absolute;
+  top: -50px;
+  right: -100px; /* pushes dots to RIGHT of the image */
+  width: 220px;
+  height: 220px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 8px;
+  pointer-events: none;
+  z-index: 1;
+
+  animation: floatDotsUpDown 4s ease-in-out infinite alternate;
+}
+
+.testimonial-dots span {
+  width: 4px;
+  height: 4px;
+  background-color: #F59A63; /* nice orange fit */
+  border-radius: 50%;
+  opacity: 1;
+}
+
+@keyframes floatDotsUpDown {
+  0% { transform: translateY(-25px); }
+  100% { transform: translateY(25px); }
+}
+

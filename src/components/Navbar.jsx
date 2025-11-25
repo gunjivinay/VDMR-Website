@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from '../assets/Group-1000010363.png';
+import logo from '../assets/Navbarlogo.jpg';
 
 const links = [
   { href: '#home', label: 'Home' },
@@ -53,11 +53,10 @@ const Navbar = () => {
   return (
     <header className="fixed top-0 left-0 w-full z-50">
       <motion.nav
-        className={`backdrop-blur border-b transition-colors ${
-          scrolled
+        className={`backdrop-blur border-b transition-colors ${scrolled
             ? 'bg-white/90 border-slate-200 shadow-sm'
             : 'bg-white/80 border-transparent'
-        }`}
+          }`}
         initial={false}
       >
         <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1.3fr] items-center px-4 py-2 md:py-3">
@@ -104,27 +103,37 @@ const Navbar = () => {
             <a
               href="#contact"
               className="
-                px-7 py-2.5 rounded-xl text-base font-medium
-                bg-gradient-to-b from-[#F39C7A] to-[#E56E40]
-                text-white shadow
-                transition-all duration-500 ease-in-out
-                hover:bg-none hover:bg-[#FBC7A6] hover:text-black
-              "
+    px-7 py-2.5 rounded-xl text-base font-medium
+    text-white shadow relative overflow-hidden
+    bg-orange-500
+    transition-all duration-500 ease-in-out
+
+    before:absolute before:inset-0 before:bg-orange-300
+    before:translate-x-[-100%] before:transition-transform before:duration-500
+    before:z-0
+
+    hover:before:translate-x-0 hover:text-black
+  "
             >
-              Sign Up Now →
+              <span className="relative z-[1]">Sign Up Now →</span>
             </a>
 
             <a
               href="#contact"
               className="
-                px-7 py-2.5 rounded-xl text-base font-medium
-                bg-gradient-to-b from-[#F39C7A] to-[#E56E40]
-                text-white shadow
-                transition-all duration-500 ease-in-out
-                hover:bg-none hover:bg-[#FBC7A6] hover:text-black
-              "
+    px-7 py-2.5 rounded-xl text-base font-medium
+    text-white shadow relative overflow-hidden
+    bg-orange-500
+    transition-all duration-500 ease-in-out
+
+    before:absolute before:inset-0 before:bg-orange-300
+    before:translate-x-[-100%] before:transition-transform before:duration-500
+    before:z-0
+
+    hover:before:translate-x-0 hover:text-black
+  "
             >
-              Upload CV
+              <span className="relative z-[1]">Upload CV</span>
             </a>
           </div>
 
@@ -141,13 +150,13 @@ const Navbar = () => {
 
         {/* MOBILE MENU */}
         <AnimatePresence>
-  {open && (
-    <motion.div
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      className="absolute top-full left-0 w-full border-t border-slate-200 bg-white md:hidden z-50 shadow-lg"
-    >
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="absolute top-full left-0 w-full border-t border-slate-200 bg-white md:hidden z-50 shadow-lg"
+            >
               <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4">
                 <ul className="flex flex-col gap-3 text-base font-medium text-slate-800">
 

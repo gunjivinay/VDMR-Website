@@ -31,27 +31,29 @@ const CallToAction = () => {
             <div className="mt-6 flex flex-wrap gap-4">
             <a
   href="#contact"
-  className="inline-flex items-center rounded-xl 
-  bg-gradient-to-b from-[#F39C7A] to-[#E56E40] 
-  px-7 py-3 text-sm font-medium text-white 
-  shadow transition-all duration-300 
-  hover:bg-[#FBC7A6] hover:from-[#FBC7A6] hover:to-[#FBC7A6] 
-  hover:text-black"
+  className="
+    relative overflow-hidden rounded-xl px-7 py-2.5 text-base font-medium 
+    bg-orange-500 text-white shadow transition-all duration-500
+    before:absolute before:inset-0 before:bg-orange-300
+    before:-translate-x-full before:transition-transform before:duration-500
+    before:z-0 hover:before:translate-x-0 hover:text-black
+  "
 >
-  Request a Free Consultation
-  <span className="ml-2 inline-flex h-6 w-6 items-center justify-center rounded-full text-white text-xs">
-    →
-  </span>
+  <span className="relative z-[1]">Request A Free Consultation →</span>
 </a>
 
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center rounded-xl border border-[#E67342] 
-                px-7 py-3 text-sm font-medium text-[#E67342]
-                transition-all duration-300 hover:bg-[#E67342] hover:text-white"
-              >
-                Contact Us
-              </a>
+<a
+  href="#contact"
+  className="
+    relative overflow-hidden rounded-xl px-7 py-2.5 text-base font-medium 
+    border border-[#E67342] text-[#E67342] shadow transition-all duration-500
+    before:absolute before:inset-0 before:bg-[#E67342]
+    before:-translate-x-full before:transition-transform before:duration-500
+    before:z-0 hover:before:translate-x-0 hover:text-white
+  "
+>
+  <span className="relative z-[1]">Contact Us</span>
+</a>
             </div>
           </motion.div>
 
