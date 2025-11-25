@@ -2,10 +2,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import SectionHeader from "./SectionHeader.jsx";
 
-import img1 from "../assets/project1.png";
-import img2 from "../assets/project2.png";
-import img3 from "../assets/project3.png";
-import img4 from "../assets/project4.png";
+import img1 from "../assets/Project1.png";
+import img2 from "../assets/Project2.png";
+import img3 from "../assets/Project3.png";
+import img4 from "../assets/Project4.png";
 import projectImage from "../assets/r-3.png";
 
 const projectImages = [img1, img2, img3, img4];
