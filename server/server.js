@@ -9,8 +9,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // CORS Configuration - Support multiple origins (local dev + Vercel production)
+// Normalize URLs (remove trailing slashes) to avoid mismatch issues
+const normalizeUrl = (url) => url.trim().replace(/\/+$/, '').toLowerCase();
+
 const allowedOrigins = process.env.CLIENT_URL 
-  ? process.env.CLIENT_URL.split(',').map(url => url.trim())
+  ? process.env.CLIENT_URL.split(',').map(normalizeUrl)
   : ['http://localhost:5173'];
 
 // Log allowed origins on startup for debugging
@@ -25,16 +28,18 @@ const corsOptions = {
       return callback(null, true);
     }
     
+    // Normalize the incoming origin (remove trailing slash, lowercase)
+    const normalizedOrigin = normalizeUrl(origin);
+    
     // Log the origin being checked
     console.log('🔍 Checking origin:', origin);
+    console.log('🔍 Normalized origin:', normalizedOrigin);
     console.log('🔍 Against allowed origins:', allowedOrigins);
     
-    // Check if origin is in allowed list (case-insensitive)
-    const originMatches = allowedOrigins.some(allowed => 
-      allowed.toLowerCase() === origin.toLowerCase()
-    );
+    // Check if normalized origin is in allowed list
+    const originMatches = allowedOrigins.includes(normalizedOrigin);
     
-    if (originMatches || allowedOrigins.indexOf(origin) !== -1) {
+    if (originMatches) {
       console.log('✅ Origin allowed:', origin);
       callback(null, true);
     } else {
@@ -44,6 +49,7 @@ const corsOptions = {
         callback(null, true);
       } else {
         console.log('❌ Origin NOT allowed:', origin);
+        console.log('❌ Normalized origin:', normalizedOrigin);
         console.log('❌ Allowed origins:', allowedOrigins);
         callback(new Error(`Not allowed by CORS. Origin: ${origin}. Allowed: ${allowedOrigins.join(', ')}`));
       }
@@ -85,25 +91,28 @@ const upload = multer({
 const createTransporter = () => {
   return nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 465,
-    secure: true, // true for 465, false for other ports
+    port: 587, // Use port 587 with TLS (works better on Render)
+    secure: false, // true for 465, false for 587
+    requireTLS: true, // Force TLS
     auth: {
       user: process.env.MAIL_USER,
       pass: process.env.MAIL_PASS // Gmail App Password
-    }
+    },
+    connectionTimeout: 10000, // 10 seconds
+    greetingTimeout: 10000,
+    socketTimeout: 10000,
+    // Retry settings
+    pool: true,
+    maxConnections: 1,
+    maxMessages: 3
   });
 };
 
-// Test email configuration on startup
+// Create transporter (don't verify on startup - causes timeout issues on Render)
 const transporter = createTransporter();
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('❌ Email transporter verification failed:', error);
-    console.log('⚠️  Make sure your .env file has correct MAIL_USER and MAIL_PASS');
-  } else {
-    console.log('✅ Email transporter is ready to send emails');
-  }
-});
+console.log('📧 Email transporter configured for:', process.env.MAIL_USER);
+console.log('📨 Email will be sent to:', process.env.RECEIVER_EMAIL);
+console.log('⚠️  Note: Transporter will be tested on first email send');
 
 // POST route to handle form submission with file upload
 app.post('/send-mail', upload.single('cv'), async (req, res) => {
@@ -165,7 +174,8 @@ app.post('/send-mail', upload.single('cv'), async (req, res) => {
       ];
     }
 
-    // Send email
+    // Send email with better error handling
+    console.log('📧 Attempting to send email...');
     const info = await transporter.sendMail(mailOptions);
 
     console.log('✅ Email sent successfully:', info.messageId);
@@ -178,10 +188,21 @@ app.post('/send-mail', upload.single('cv'), async (req, res) => {
 
   } catch (error) {
     console.error('❌ Error sending email:', error);
+    console.error('❌ Error code:', error.code);
+    console.error('❌ Error command:', error.command);
+    
+    // More specific error messages
+    let errorMessage = 'Failed to send email. Please try again later.';
+    
+    if (error.code === 'ETIMEDOUT' || error.code === 'ECONNREFUSED') {
+      errorMessage = 'Email server connection timeout. Please check your Gmail App Password and network settings.';
+    } else if (error.code === 'EAUTH') {
+      errorMessage = 'Email authentication failed. Please check your Gmail App Password.';
+    }
     
     res.status(500).json({
       success: false,
-      message: 'Failed to send email. Please try again later.',
+      message: errorMessage,
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
