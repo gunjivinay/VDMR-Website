@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
-const nodemailer = require('nodemailer');
+const { Resend } = require('@resend/node');
 const path = require('path');
 require('dotenv').config();
 
@@ -87,32 +87,17 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-// Nodemailer Configuration
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587, // Use port 587 with TLS (works better on Render)
-    secure: false, // true for 465, false for 587
-    requireTLS: true, // Force TLS
-    auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS // Gmail App Password
-    },
-    connectionTimeout: 10000, // 10 seconds
-    greetingTimeout: 10000,
-    socketTimeout: 10000,
-    // Retry settings
-    pool: true,
-    maxConnections: 1,
-    maxMessages: 3
-  });
-};
+// Resend Email Configuration (works better with cloud platforms like Render)
+const resend = process.env.RESEND_API_KEY 
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 
-// Create transporter (don't verify on startup - causes timeout issues on Render)
-const transporter = createTransporter();
-console.log('📧 Email transporter configured for:', process.env.MAIL_USER);
-console.log('📨 Email will be sent to:', process.env.RECEIVER_EMAIL);
-console.log('⚠️  Note: Transporter will be tested on first email send');
+if (resend) {
+  console.log('✅ Resend email service configured');
+  console.log('📨 Email will be sent to:', process.env.RECEIVER_EMAIL);
+} else {
+  console.log('⚠️  RESEND_API_KEY not found. Please set it in environment variables.');
+}
 
 // POST route to handle form submission with file upload
 app.post('/send-mail', upload.single('cv'), async (req, res) => {
@@ -128,29 +113,41 @@ app.post('/send-mail', upload.single('cv'), async (req, res) => {
       });
     }
 
-    // Email content
-    const mailOptions = {
-      from: `"${first_name} ${last_name}" <${process.env.MAIL_USER}>`,
-      to: process.env.RECEIVER_EMAIL,
-      subject: 'New Contact Form Submission',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
-          <div style="background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <h2 style="color: #D87245; margin-top: 0;">New Contact Form Submission</h2>
-            
-            <div style="margin-bottom: 20px;">
-              <p style="margin: 10px 0;"><strong style="color: #333;">First Name:</strong> ${first_name}</p>
-              <p style="margin: 10px 0;"><strong style="color: #333;">Last Name:</strong> ${last_name}</p>
-              <p style="margin: 10px 0;"><strong style="color: #333;">Email:</strong> <a href="mailto:${email}" style="color: #D87245;">${email}</a></p>
-            </div>
-            
-            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-              <strong style="color: #333; display: block; margin-bottom: 10px;">Message:</strong>
-              <p style="color: #555; line-height: 1.6; white-space: pre-wrap;">${message}</p>
-            </div>
+    // Check if Resend is configured
+    if (!resend) {
+      return res.status(500).json({
+        success: false,
+        message: 'Email service not configured. Please set RESEND_API_KEY in environment variables.'
+      });
+    }
+
+    // Prepare email HTML content
+    const emailHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
+        <div style="background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+          <h2 style="color: #D87245; margin-top: 0;">New Contact Form Submission</h2>
+          
+          <div style="margin-bottom: 20px;">
+            <p style="margin: 10px 0;"><strong style="color: #333;">First Name:</strong> ${first_name}</p>
+            <p style="margin: 10px 0;"><strong style="color: #333;">Last Name:</strong> ${last_name}</p>
+            <p style="margin: 10px 0;"><strong style="color: #333;">Email:</strong> <a href="mailto:${email}" style="color: #D87245;">${email}</a></p>
+          </div>
+          
+          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+            <strong style="color: #333; display: block; margin-bottom: 10px;">Message:</strong>
+            <p style="color: #555; line-height: 1.6; white-space: pre-wrap;">${message}</p>
           </div>
         </div>
-      `,
+      </div>
+    `;
+
+    // Prepare email options for Resend
+    const emailOptions = {
+      from: 'onboarding@resend.dev', // Use Resend's default domain (can change later)
+      to: process.env.RECEIVER_EMAIL,
+      replyTo: email, // User's email for reply
+      subject: 'New Contact Form Submission',
+      html: emailHtml,
       text: `
         New Contact Form Submission
         
@@ -163,41 +160,46 @@ app.post('/send-mail', upload.single('cv'), async (req, res) => {
       `
     };
 
-    // Attach file if provided
+    // Add attachment if file is provided
     if (req.file) {
-      mailOptions.attachments = [
+      emailOptions.attachments = [
         {
           filename: req.file.originalname,
           content: req.file.buffer,
-          contentType: req.file.mimetype
         }
       ];
     }
 
-    // Send email with better error handling
-    console.log('📧 Attempting to send email...');
-    const info = await transporter.sendMail(mailOptions);
+    // Send email using Resend
+    console.log('📧 Attempting to send email via Resend...');
+    console.log('📧 To:', process.env.RECEIVER_EMAIL);
+    
+    const { data, error } = await resend.emails.send(emailOptions);
 
-    console.log('✅ Email sent successfully:', info.messageId);
+    if (error) {
+      throw error;
+    }
+
+    console.log('✅ Email sent successfully via Resend:', data?.id);
 
     res.status(200).json({
       success: true,
       message: 'Email sent successfully!',
-      messageId: info.messageId
+      messageId: data?.id || 'sent'
     });
 
   } catch (error) {
     console.error('❌ Error sending email:', error);
-    console.error('❌ Error code:', error.code);
-    console.error('❌ Error command:', error.command);
+    console.error('❌ Error message:', error.message);
+    console.error('❌ Full error:', JSON.stringify(error, null, 2));
     
     // More specific error messages
     let errorMessage = 'Failed to send email. Please try again later.';
     
-    if (error.code === 'ETIMEDOUT' || error.code === 'ECONNREFUSED') {
-      errorMessage = 'Email server connection timeout. Please check your Gmail App Password and network settings.';
-    } else if (error.code === 'EAUTH') {
-      errorMessage = 'Email authentication failed. Please check your Gmail App Password.';
+    if (error.message && error.message.includes('API key')) {
+      errorMessage = 'Resend API key is invalid. Please check RESEND_API_KEY in environment variables.';
+    } else if (error.message && error.message.includes('domain')) {
+      errorMessage = 'Email domain not verified. Please verify your domain in Resend dashboard or use onboarding@resend.dev.';
     }
     
     res.status(500).json({
