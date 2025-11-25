@@ -90,10 +90,22 @@ const ContactSection = () => {
 
       // Send to backend - uses environment variable or falls back to localhost for development
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      
+      // Debug: Log API URL (remove in production if needed)
+      console.log("API URL:", apiUrl);
+      console.log("Full endpoint:", `${apiUrl}/send-mail`);
+      
       const response = await fetch(`${apiUrl}/send-mail`, {
         method: "POST",
         body: formDataToSend,
       });
+
+      // Check if response is ok before parsing JSON
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Response error:", response.status, errorText);
+        throw new Error(`Server error: ${response.status} - ${errorText}`);
+      }
 
       const data = await response.json();
 
@@ -122,7 +134,19 @@ const ContactSection = () => {
     } catch (error) {
       console.error("Error submitting form:", error);
       setSubmitStatus("error");
-      setErrorMessage("Network error. Please check if the server is running and try again.");
+      
+      // More specific error messages
+      let errorMsg = "Network error. Please check if the server is running and try again.";
+      
+      if (error.message.includes("Failed to fetch") || error.message.includes("NetworkError")) {
+        errorMsg = "Cannot connect to server. Please check: 1) Backend is running, 2) API URL is correct, 3) No CORS errors.";
+      } else if (error.message.includes("CORS")) {
+        errorMsg = "CORS error: Backend needs to allow requests from this domain. Check CLIENT_URL in backend.";
+      } else if (error.message.includes("Server error")) {
+        errorMsg = error.message;
+      }
+      
+      setErrorMessage(errorMsg);
     } finally {
       setIsSubmitting(false);
     }
