@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
-const { Resend } = require('@resend/node');
+const { Resend } = require('resend');
 const path = require('path');
 require('dotenv').config();
 
