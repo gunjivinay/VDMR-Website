@@ -13,19 +13,39 @@ const allowedOrigins = process.env.CLIENT_URL
   ? process.env.CLIENT_URL.split(',').map(url => url.trim())
   : ['http://localhost:5173'];
 
+// Log allowed origins on startup for debugging
+console.log('🌐 Allowed CORS origins:', allowedOrigins);
+console.log('🌐 CLIENT_URL from env:', process.env.CLIENT_URL);
+
 const corsOptions = {
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
+    if (!origin) {
+      console.log('⚠️ Request with no origin - allowing');
+      return callback(null, true);
+    }
     
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    // Log the origin being checked
+    console.log('🔍 Checking origin:', origin);
+    console.log('🔍 Against allowed origins:', allowedOrigins);
+    
+    // Check if origin is in allowed list (case-insensitive)
+    const originMatches = allowedOrigins.some(allowed => 
+      allowed.toLowerCase() === origin.toLowerCase()
+    );
+    
+    if (originMatches || allowedOrigins.indexOf(origin) !== -1) {
+      console.log('✅ Origin allowed:', origin);
       callback(null, true);
     } else {
       // For development, allow localhost on any port
       if (process.env.NODE_ENV !== 'production' && origin.includes('localhost')) {
+        console.log('✅ Localhost origin allowed (dev mode):', origin);
         callback(null, true);
       } else {
-        callback(new Error('Not allowed by CORS'));
+        console.log('❌ Origin NOT allowed:', origin);
+        console.log('❌ Allowed origins:', allowedOrigins);
+        callback(new Error(`Not allowed by CORS. Origin: ${origin}. Allowed: ${allowedOrigins.join(', ')}`));
       }
     }
   },
