@@ -71,7 +71,7 @@ const Testimonials = () => {
                 absolute -left-6 md:-left-10 
                 top-1/2 -translate-y-1/2
                 bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white 
-                px-4 py-3 rounded-full shadow-md transition
+                px-4 py-3 rounded-full shadow-md transition z-20
               "
             >
               ←
@@ -119,7 +119,7 @@ const Testimonials = () => {
                 absolute -right-6 md:-right-10 
                 top-1/2 -translate-y-1/2
                 bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white 
-                px-4 py-3 rounded-full shadow-md transition
+                px-4 py-3 rounded-full shadow-md transition z-20
               "
             >
               →

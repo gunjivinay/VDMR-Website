@@ -91,9 +91,9 @@ const Projects = () => {
           {/* Left Arrow */}
           <button
             onClick={prev}
-            className="absolute -left-12 top-1/2 -translate-y-1/2 
+            className="absolute -left-4 sm:-left-12 top-1/2 -translate-y-1/2 
               bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white 
-              px-3 py-2 text-lg rounded-full shadow-lg transition"
+              px-3 py-2 text-lg rounded-full shadow-lg transition z-20"
           >
             ←
           </button>
@@ -106,7 +106,7 @@ const Projects = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.5 }}
-              className="grid grid-cols-3 gap-8 w-full"
+             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full"
             >
               {projectImages.slice(startIndex, startIndex + 3).map((src, idx) => {
                 const realIndex = startIndex + idx;
@@ -125,12 +125,15 @@ const Projects = () => {
 
                     {/* Title with left-to-right fill animation */}
                     <div
-                      className="project-fill-slide absolute bottom-4 left-1/2 -translate-x-1/2
-                                 bg-orange-500 text-white px-4 py-2 text-sm rounded-lg 
-                                 text-center font-semibold transition-all duration-300"
-                    >
-                      {projectTitles[realIndex]}
-                    </div>
+  className="project-fill-slide absolute bottom-4 left-1/2 -translate-x-1/2
+             bg-gradient-to-b from-[#F39C7A] to-[#E56E40]
+             text-white text-center font-semibold
+             px-5 py-3 rounded-lg
+             w-[85%] max-w-[260px]
+             text-base shadow-md"
+>
+  {projectTitles[realIndex]}
+</div>
                   </div>
                 );
               })}
@@ -140,9 +143,9 @@ const Projects = () => {
           {/* Right Arrow */}
           <button
             onClick={next}
-            className="absolute -right-12 top-1/2 -translate-y-1/2 
+            className="absolute -right-4 sm:-right-12 top-1/2 -translate-y-1/2 
               bg-[#FFBCA3] hover:bg-[#FF9D7A] text-white 
-              px-3 py-2 text-lg rounded-full shadow-lg transition"
+              px-3 py-2 text-lg rounded-full shadow-lg transition z-20"
           >
             →
           </button>
@@ -159,18 +162,24 @@ const Projects = () => {
             className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
             onClick={() => setActiveModal(null)}
           >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="relative p-8 rounded-2xl max-w-lg shadow-xl"
-              style={{
-                animation: "popupGlow 6s ease-in-out infinite",
-                background: "linear-gradient(135deg, #fff7f2, #ffe1d0)"
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
+           <motion.div
+  initial={{ scale: 0.9, opacity: 0 }}
+  animate={{ scale: 1, opacity: 1 }}
+  exit={{ scale: 0.9, opacity: 0 }}
+  transition={{ duration: 0.25 }}
+  className="
+  relative rounded-2xl shadow-xl 
+  p-4 sm:p-8
+  w-[90%] sm:w-auto 
+  max-w-[500px] sm:max-w-lg 
+  max-h-[80vh] overflow-y-auto
+"
+  style={{
+    animation: "popupGlow 6s ease-in-out infinite",
+    background: "linear-gradient(135deg, #fff7f2, #ffe1d0)"
+  }}
+  onClick={(e) => e.stopPropagation()}
+>
               {/* Close Button */}
               <button
                 onClick={() => setActiveModal(null)}
