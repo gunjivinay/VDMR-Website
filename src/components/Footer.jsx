@@ -4,6 +4,7 @@ import emailIcon from '../assets/Group-1000004160-1-25x25.png';
 import addressIcon from '../assets/Group-1000004160-2-25x25.png';
 
 const Footer = () => {
+  const locationSrc = typeof window !== "undefined" ? window.location.href : "";
   return (
     <footer className="mt-16 bg-gradient-to-b from-[#FFE8DF] via-primarySoft/80 to-primaryLight">
       <div className="mx-auto max-w-6xl px-4 pt-10 pb-6">
@@ -98,12 +99,11 @@ const Footer = () => {
 
         <div className="mt-8 border-t border-white/40 pt-4 text-center text-xs text-slate-900">
   Copyright © 2025 VDMR Pty Ltd, All rights reserved.
-  <br />
 
-  {/* Gradient Text for Nexzap */}
-  Powered by{" "}
-  <a
-  href="https://nexzap.com/"
+  <div className="mt-2">
+    Powered by{" "}
+    <a
+  href={`https://nexzap.com/?utm_source=vdmr&utm_medium=footer&utm_campaign=branding&src=${encodeURIComponent(locationSrc)}`}
   target="_blank"
   rel="noopener noreferrer"
   className="font-semibold md:text-sm hover:text-white"
@@ -111,6 +111,8 @@ const Footer = () => {
   Nexzap
 </a>
 </div>
+</div>
+
       </div>
     </footer>
   );
