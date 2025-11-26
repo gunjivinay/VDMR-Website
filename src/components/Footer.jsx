@@ -97,8 +97,20 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 border-t border-white/40 pt-4 text-center text-xs text-slate-900">
-          Copyright © 2025 VDMR Pty Ltd, All rights reserved.
-        </div>
+  Copyright © 2025 VDMR Pty Ltd, All rights reserved.
+  <br />
+
+  {/* Gradient Text for Nexzap */}
+  Powered by{" "}
+  <a
+  href="https://nexzap.com/"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="font-semibold md:text-sm hover:text-white"
+>
+  Nexzap
+</a>
+</div>
       </div>
     </footer>
   );
