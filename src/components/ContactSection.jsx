@@ -30,19 +30,19 @@ const ContactSection = () => {
 
         {/* WhatsApp Button with Orange + Hover Fill */}
         <motion.a
-          href="https://wa.me/918050703016"
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="btn-fill-slide mt-8 inline-flex items-center gap-3 px-10 py-3 
-                     rounded-lg bg-gradient-to-b from-[#F39C7A] to-[#E56E40] 
-                     text-white text-lg font-semibold shadow-lg transition-all"
-        >
-          💬 Chat on WhatsApp
-        </motion.a>
+  href="https://wa.me/61447272033"
+  target="_blank"
+  rel="noopener noreferrer"
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.4 }}
+  transition={{ duration: 0.6, delay: 0.3 }}
+  className="btn-fill-slide mt-8 inline-flex items-center gap-3 px-10 py-3 
+             rounded-lg bg-gradient-to-b from-[#F39C7A] to-[#E56E40] 
+             text-white text-lg font-semibold shadow-lg transition-all"
+>
+  💬 Chat on WhatsApp
+</motion.a>
 
       </div>
     </section>
